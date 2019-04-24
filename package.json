@@ -3,9 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-scripts": "3.0.0"
+    "@material-ui/core": "^3.9.3",
+    "@material-ui/icons": "^3.0.2",
+    "@material-ui/lab": "^3.0.0-alpha.30",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "react-material-ui-form-validator": "^2.0.7",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "2.1.8"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -29,8 +34,9 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^5.16.0",
+    "eslint": "5.12.0",
     "eslint-config-google": "^0.12.0",
     "eslint-plugin-react": "^7.12.4"
-  }
+  },
+  "homepage": "."
 }
