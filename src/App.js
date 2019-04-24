@@ -7,11 +7,13 @@ import Home from './views/Home';
 import Login from './views/Login';
 import {tokenCheck} from './utils/MediaAPI';
 import {Grid} from '@material-ui/core';
+import Profile from './views/Profile';
 
 class App extends Component {
   state = {
     picArray: [],
     user: [],
+    currentPw: '',
   };
 
   componentDidMount() {
@@ -24,8 +26,15 @@ class App extends Component {
       } else {
         this.setState({user: data});
         this.setState({errorMessage: ''});
+        console.log("App state user: ",data);
       }
     });
+  }
+
+  //vanhan salasanan gettaamiseen profiilisivulle
+  getPassword = (data) => {
+    this.setState({currentPw: data});
+    console.log("Currentpw: "+this.state.currentPw);
   }
 
   setUser = (data) => {
@@ -56,10 +65,13 @@ class App extends Component {
             </Grid>
             <Grid item md={10} xs={12}>
               <Route exact path="/" render={(props) => (
-                  <Login {...props} setUser={this.setUser}/>
+                  <Login {...props} setUser={this.setUser} getPw={this.getPassword}/>
               )}/>
               <Route exact path="/home" render={(props) => (
                   <Home {...props} picArray={this.state.picArray}/>
+              )}/>
+              <Route path="/profile" render={(props) => (
+                  <Profile {...props} user={this.state.user} password={this.state.currentPw}/>
               )}/>
               <Route exact path="/logout" component={this.logout}/>
             </Grid>

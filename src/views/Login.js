@@ -41,6 +41,7 @@ class Login extends Component {
       }
       return true;
     });
+
   }
 
   checkUsername = () => {
@@ -69,6 +70,8 @@ class Login extends Component {
     login(this.state.user.username, this.state.user.password).then((user) => {
       if (user.token) {
         this.props.setUser(user);
+        localStorage.setItem("Pw",this.state.user.password);
+        this.props.getPw(this.state.user.password); //lähetetään salasana omaan stateen App.js
         this.props.history.push('/home');
       } else {
         window.alert(user.message);
