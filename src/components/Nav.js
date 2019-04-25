@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {List, ListItem, ListItemIcon, ListItemText} from '@material-ui/core';
-import {Home, PowerSettingsNew} from '@material-ui/icons';
+import {Home, PowerSettingsNew, AddCircle} from '@material-ui/icons';
 
 //lisätää linkkejä sitä mukaan ku tulee komponentteja
 const Nav = () => {
@@ -19,6 +19,12 @@ const Nav = () => {
               <PowerSettingsNew/>
             </ListItemIcon>
             <ListItemText primary="Logout"/>
+          </ListItem>
+          <ListItem button component={Link} to="/upload">
+            <ListItemIcon>
+              <AddCircle/>
+            </ListItemIcon>
+            <ListItemText primary="upload"/>
           </ListItem>
         </List>
       </nav>

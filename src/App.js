@@ -5,13 +5,23 @@ import {Redirect} from 'react-router';
 import Nav from './components/Nav';
 import Home from './views/Home';
 import Login from './views/Login';
-import {tokenCheck} from './utils/MediaAPI';
+import {getAllMedia, tokenCheck} from './utils/MediaAPI';
 import {Grid} from '@material-ui/core';
+import Upload from './views/Upload';
 
 class App extends Component {
   state = {
     picArray: [],
     user: [],
+  };
+
+
+
+  getMedia = () => {
+    getAllMedia().then((pics) => {
+      console.log(pics);
+      this.setState({picArray: pics});
+    });
   };
 
   componentDidMount() {
@@ -62,6 +72,9 @@ class App extends Component {
                   <Home {...props} picArray={this.state.picArray}/>
               )}/>
               <Route exact path="/logout" component={this.logout}/>
+              <Route path="/upload" render={(props) => (
+                  <Upload {...props} getMedia={this.getMedia}/>
+              )}/>
             </Grid>
           </Grid>
         </Router>
