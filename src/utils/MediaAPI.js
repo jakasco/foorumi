@@ -32,6 +32,51 @@ const checkIfUserNameExists = (username) => {
   });
 };
 
+const changeUserPassword = (token,pw) => {
+  const settings = {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'x-access-token': token,
+    },
+    body: JSON.stringify({password: pw}),
+  };
+    return fetch(apiUrl + 'users', settings).then(response => {
+    return response.json()
+  });
+};
+
+const changeUserName = (token,name) => {
+  const settings = {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'x-access-token': token,
+    },
+    body: JSON.stringify({username: name}),
+  };
+    return fetch(apiUrl + 'users', settings).then(response => {
+    return response.json()
+  });
+};
+
+const changeUserEmail = (token,email) => {
+  const settings = {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'x-access-token': token,
+    },
+    body: JSON.stringify({email: email}),
+  };
+    return fetch(apiUrl + 'users', settings).then(response => {
+    return response.json()
+  });
+};
+
 const changeForm = () => {
   if (document.querySelector("#logincontainer").style.display === 'block') {
     document.querySelector("#logincontainer").style.display = 'none';
@@ -54,5 +99,20 @@ const tokenCheck = (token) => {
   });
 };
 
+const getAllMedia = () => {
+  return fetch(apiUrl + 'media/').then(response => {
+    return response.json();
+  }).then(json => {
+    console.log(json);
+    return Promise.all(json.map(pic => {
+      return fetch(apiUrl + 'media/' + pic.file_id).then(response => {
+        return response.json();
+      });
+    })).then(pics => {
+      console.log(pics);
+      return pics;
+    });
+  });
+};
 
-export {login, registerUser, checkIfUserNameExists, changeForm, tokenCheck};
+export {login, registerUser, checkIfUserNameExists, changeForm, tokenCheck, getAllMedia, changeUserPassword, changeUserName, changeUserEmail};
