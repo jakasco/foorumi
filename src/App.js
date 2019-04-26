@@ -5,15 +5,24 @@ import {Redirect} from 'react-router';
 import Nav from './components/Nav';
 import Home from './views/Home';
 import Login from './views/Login';
-import {tokenCheck} from './utils/MediaAPI';
+import {getAllMedia, tokenCheck} from './utils/MediaAPI';
 import {Grid} from '@material-ui/core';
-import Profile from './views/Profile';
+import Upload from './views/Upload';
+import Front from './views/Front';
 
 class App extends Component {
   state = {
     picArray: [],
     user: [],
-    currentPw: '',
+  };
+
+
+
+  getMedia = () => {
+    getAllMedia().then((pics) => {
+      console.log(pics);
+      this.setState({picArray: pics});
+    });
   };
 
   componentDidMount() {
@@ -26,15 +35,9 @@ class App extends Component {
       } else {
         this.setState({user: data});
         this.setState({errorMessage: ''});
-        console.log("App state user: ",data);
       }
     });
-  }
-
-  //vanhan salasanan gettaamiseen profiilisivulle
-  getPassword = (data) => {
-    this.setState({currentPw: data});
-    console.log("Currentpw: "+this.state.currentPw);
+    this.updateImages();
   }
 
   setUser = (data) => {
@@ -55,6 +58,15 @@ class App extends Component {
     });
     return <Redirect to='/'/>;
   };
+  // päivittää kuvat kun sivun lataa
+  updateImages = () => {
+    getAllMedia().then((pics) => {
+      console.log(pics);
+      this.setState({picArray: pics});
+    });
+  };
+
+
 
   render() {
     return (
@@ -65,15 +77,15 @@ class App extends Component {
             </Grid>
             <Grid item md={10} xs={12}>
               <Route exact path="/" render={(props) => (
-                  <Login {...props} setUser={this.setUser} getPw={this.getPassword}/>
+                  <Login {...props} setUser={this.setUser}/>
               )}/>
               <Route exact path="/home" render={(props) => (
-                  <Home {...props} picArray={this.state.picArray}/>
-              )}/>
-              <Route path="/profile" render={(props) => (
-                  <Profile {...props} user={this.state.user} password={this.state.currentPw}/>
+                  <Front {...props} picArray={this.state.picArray}/>
               )}/>
               <Route exact path="/logout" component={this.logout}/>
+              <Route path="/upload" render={(props) => (
+                  <Upload {...props} getMedia={this.getMedia}/>
+              )}/>
             </Grid>
           </Grid>
         </Router>
