@@ -1,1 +1,1 @@
-Profiili sivu lisätty
+Kuvat tulevat etusivulle
