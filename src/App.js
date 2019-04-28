@@ -10,6 +10,7 @@ import {Grid} from '@material-ui/core';
 import Profile from './views/Profile';
 import Upload from './views/Upload';
 import Front from './views/Front';
+import Single from './views/Single';
 
 class App extends Component {
   state = {
@@ -96,6 +97,7 @@ class App extends Component {
                   <Profile {...props} user={this.state.user} password={this.state.currentPw} setUser={this.setUser}/>
               )}/>
               <Route exact path="/logout" component={this.logout}/>
+              <Route exact path="/single/:id" component={Single}/>
               <Route path="/upload" render={(props) => (
                 <Upload {...props} getMedia={this.getMedia}/>
             )}/>

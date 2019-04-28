@@ -115,4 +115,21 @@ const getAllMedia = () => {
   });
 };
 
-export {login, registerUser, checkIfUserNameExists, changeForm, tokenCheck, getAllMedia, changeUserPassword, changeUserName, changeUserEmail};
+const getSingleMedia = (id) => {
+  return fetch(apiUrl + 'media/' + id).then(response => {
+    return response.json();
+  });
+};
+
+const getComments = (id) =>{
+  return fetch(apiUrl + 'comments/file/' + id, {
+    Params: {
+      'id': id
+    },
+  }).then(response => response.json()).then(json => {
+    console.log(json);
+    return json;
+  })
+};
+
+export {getComments, getSingleMedia, login, registerUser, checkIfUserNameExists, changeForm, tokenCheck, getAllMedia, changeUserPassword, changeUserName, changeUserEmail};

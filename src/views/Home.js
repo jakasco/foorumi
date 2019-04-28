@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {GridList, GridListTile, ListSubheader} from '@material-ui/core';
+import {GridList} from '@material-ui/core';
 import {tokenCheck} from '../utils/MediaAPI';
 
 const Home = (props) => {
@@ -12,10 +12,7 @@ const Home = (props) => {
 
   return (
       <GridList>
-        <GridListTile key="Subheader" cols={2} style={{height: 'auto'}}>
-          <ListSubheader component="div">Home</ListSubheader>
-          <p>tähän lankojen lataus</p>
-        </GridListTile>
+
       </GridList>
   );
 };
