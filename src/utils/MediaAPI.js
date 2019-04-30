@@ -43,17 +43,27 @@ const addTag = (token,id,tagName) => {
     body: JSON.stringify({file_id: id, tag: tagName}),
   };
   return fetch(apiUrl + 'tags', settings).then(response => {
-    console.log("Tag added!");
+    //console.log("Tag added!");
     return response.json()
   });
-}
+};
 
 const getFilesWithTag = (tagName) => {
 
   return fetch(apiUrl + 'tags/' + tagName).then(response => {
     return response.json();
+  }).then(json => {
+    return Promise.all(json.map(pic => {
+      return fetch(apiUrl + 'media/' + pic.file_id).then(response => {
+        return response.json();
+      });
+    })).then(pics => {
+      console.log(pics);
+      return pics;
+    });
   });
 };
+
 
 const ratePost = (fileId) => {
 
@@ -157,13 +167,11 @@ const getAllMedia = () => {
   return fetch(apiUrl + 'media/').then(response => {
     return response.json();
   }).then(json => {
-    console.log(json);
     return Promise.all(json.map(pic => {
       return fetch(apiUrl + 'media/' + pic.file_id).then(response => {
         return response.json();
       });
     })).then(pics => {
-      console.log(pics);
       return pics;
     });
   });

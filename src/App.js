@@ -3,7 +3,6 @@ import './App.css';
 import {HashRouter as Router, Route} from 'react-router-dom';
 import {Redirect} from 'react-router';
 import Nav from './components/Nav';
-import Home from './views/Home';
 import Login from './views/Login';
 import {tokenCheck, getAllMedia, getFilesWithTag} from './utils/MediaAPI';
 import {Grid} from '@material-ui/core';
@@ -107,7 +106,7 @@ class App extends Component {
                 <Upload {...props} getMedia={this.getMedia}/>
             )}/>
             </Grid>
-          </Grid>
+            </Grid>
         </Router>
     );
   }

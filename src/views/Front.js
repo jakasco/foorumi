@@ -1,20 +1,48 @@
 import React from 'react';
-// import Table from '../components/Table';
 import PropTypes from 'prop-types';
 import ImageGrid from '../components/ImageGrid';
+import {tokenCheck} from '../utils/MediaAPI';
+import {GridList, Typography} from '@material-ui/core';
+import {withStyles} from '@material-ui/core/styles';
+
+const styles = () => ({
+  list: {
+    maxWidth: 1075,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    borderRadius: 6,
+    display: 'flex',
+    justifyContent: 'center',
+  },
+});
 
 const Front = (props) => {
-  const {picArray} = props;
+  const {classes} = props;
+
+  tokenCheck(localStorage.getItem('Login-token')).then(data => {
+    if (data.message) {
+      props.history.push('/');
+    }
+  });
+
   return (
       <React.Fragment>
-        {/* <Table picArray={picArray}/> */}
-        <ImageGrid picArray={picArray} edit={false}/>
+
+        <Typography variant="h2" gutterBottom>Catalog</Typography>
+
+
+        <GridList className={classes.list}>
+          <ImageGrid picArray={props.picArray} edit={false}/>
+        </GridList>
+
       </React.Fragment>
   );
 };
 
 Front.propTypes = {
   picArray: PropTypes.array,
+  history: PropTypes.object,
+  classes: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired,
 };
 
-export default Front;
+export default withStyles(styles)(Front);
