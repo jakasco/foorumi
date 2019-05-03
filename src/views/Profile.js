@@ -4,24 +4,13 @@ import { withStyles } from '@material-ui/core/styles';
 import {Redirect, Route} from 'react-router-dom';
 import Nav from "../App";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
+import {  Grid, Button, TextField,} from '@material-ui/core';
 import {
-    login,
-    tokenCheck,
-    registerUser,
-    checkIfUserNameExists,
-    changeForm,
+    changeUserPassword,
+    changeUserName,
+    changeUserEmail,
+    getFilesWithTag
 } from '../utils/MediaAPI';
-import {
-    Card,
-    CardActionArea,
-    CardContent,
-    CardMedia,
-    Typography,
-    Grid, Button, TextField,
-} from '@material-ui/core';
-
-const mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
-
 
 class Profile extends Component {
 
@@ -34,18 +23,25 @@ class Profile extends Component {
         },
         oldPassword: '',
         newPassword: '',
+        newPasswordRepeat: '',
+        newEmail: '',
+        newUserName: '',
     };
 
     componentDidMount() {
+
         console.log("Propseissa tuleva password:",this.props.password+" tai localStoragessa: "+localStorage.getItem('Pw'));
         // korjataan profiilisivun latausongelma
         if(this.props.user === null) {
             return <Redirect to="/"/>;
-        };
+        }else{
+          this.state.user = this.props.user;
+          console.log("User profiilissa: ",this.state.user);
+        }
 
-        //Laitetaan stateksi nykyinen user
-        this.state.user = this.props.user;
+
     };
+
 
     handleInputChangeOldPw = (evt) => {
         const target = evt.target;
@@ -75,21 +71,100 @@ class Profile extends Component {
         });
     };
 
+    handleInputChangeEmail = (evt) => {
+        const target = evt.target;
+        const value = target.value;
+        const name = target.name;
+        console.log("New email: ",name, value);
+        this.setState({newEmail: value});
+        this.setState((prevState) => {
+            return {
+                ...prevState.newEmail,
+                [name]: value,
+            }
+        });
+    };
+
+    handleInputChangeUsername = (evt) => {
+        const target = evt.target;
+        const value = target.value;
+        const name = target.name;
+        console.log("New username: ",name, value);
+        this.setState({newUserName: value});
+        this.setState((prevState) => {
+            return {
+                ...prevState.newUserName,
+                [name]: value,
+            }
+        });
+    };
+
+    handleInputChangeNewPwRepeat = (evt) => {
+        const target = evt.target;
+        const value = target.value;
+        const name = target.name;
+        console.log("New retype: ",name, value);
+        this.setState({newPasswordRepeat: value});
+        this.setState((prevState) => {
+            return {
+                ...prevState.newPasswordRepeat,
+                [name]: value,
+            }
+        });
+    };
+
+    //tarkasta täsmääkö uudet salasanat
+    checkIfPasswordsMatch = (pw1,pw2) => {
+      console.log("Token "+localStorage.getItem('Login-token'));
+      if(pw1 === pw2){
+        changeUserPassword(localStorage.getItem('Login-token'), pw1).then(data => {
+          localStorage.setItem('Pw', pw1); //muutetaan nykyinen salasana localstorageen,
+                                          //jottei tule erroria jos samalla loggauksella vaihdetaan salasana 2 kertaa
+         //tyhjennetään kentät
+          this.setState({oldPassword: ""});
+          this.setState({newPassword: ""});
+          this.setState({newPasswordRepeat: ""});
+          alert("Password successfully changed!");
+          return data;
+        });
+      };
+    }
+
     changePassword = (evt) => {
         evt.preventDefault();
       //tarkistetaan täsmääkö vanha salasana jotta voidaan jatkaa eteenpäin
       if(this.state.oldPassword === this.props.password || this.state.oldPassword === localStorage.getItem('Pw')){
-          alert("Salasanat oikein! uusi salasanan vaihto ei vielä valmis...");
           console.log("Old: "+this.state.oldPassword+" , New: "+this.state.newPassword);
+          this.checkIfPasswordsMatch(this.state.newPassword, this.state.newPasswordRepeat);
       }else{
-          alert("Väärät salasanat!");
+          alert("Passwords are incorrect!");
       }
+    };
+
+    changeEmail = (evt) => {
+        evt.preventDefault();
+          changeUserEmail(localStorage.getItem('Login-token'), this.state.newEmail).then(data => {
+          console.log("Email changed successfully!");
+          this.state.user.email = this.state.newEmail;
+          console.log("Päivitetty user: ",this.state.user);
+           //Vaihdetaan App.js staten userin ominaisuudet
+         this.props.setUser({user: this.state.user, token: localStorage.getItem('Login-token')});
+        });
+    };
+
+    changeUsername = (evt) => {
+        evt.preventDefault();
+        changeUserName(localStorage.getItem('Login-token'), this.state.newUserName).then(data => {
+        console.log("Username changed successfully!");
+        this.state.user.username = this.state.newUserName;
+        console.log("Päivitetty user: ",this.state.user);
+       this.props.setUser({user: this.state.user, token: localStorage.getItem('Login-token')}); //Vaihdetaan App.js staten userin ominaisuudet
+      });
     };
 
 
 render()
 {
-
     return (
         <React.Fragment>
             <h1>Profile</h1>
@@ -117,7 +192,48 @@ render()
                         value={this.state.newPassword}
                         onChange={this.handleInputChangeNewPw}
                     />
+                    <br/>
+                    <TextValidator
+                        label="Retype New Password"
+                        type="password"
+                        name="password"
+                        value={this.state.newPasswordRepeat}
+                        onChange={this.handleInputChangeNewPwRepeat}
+                    />
+                    <br/>
                     <Button type="submit" variant="contained" onClick={this.changePassword}>Change password</Button>
+                </ValidatorForm>
+            </div>
+            <div>
+                <h3>Change Email</h3>
+                <ValidatorForm
+                    onSubmit={this.changeEmail}
+                    onError={errors => console.log(errors)}>
+                    <TextValidator
+                    type="text"
+                    label="New Email"
+                    name="email"
+                    value={this.state.newEmail}
+                    onChange={this.handleInputChangeEmail}
+                    />
+                    <br/>
+                    <Button type="submit" variant="contained" onClick={this.changeEmail}>Change email</Button>
+                </ValidatorForm>
+            </div>
+            <div>
+                <h3>Change Username</h3>
+                <ValidatorForm
+                    onSubmit={this.changeUsername}
+                    onError={errors => console.log(errors)}>
+                    <TextValidator
+                    type="text"
+                    label="New Username"
+                    name="username"
+                    value={this.state.newUserName}
+                    onChange={this.handleInputChangeUsername}
+                    />
+                    <br/>
+                    <Button type="submit" variant="contained" onClick={this.changeUsername}>Change Username</Button>
                 </ValidatorForm>
             </div>
 
