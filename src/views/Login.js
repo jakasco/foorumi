@@ -46,7 +46,7 @@ class Login extends Component {
 
   checkUsername = () => {
     checkIfUserNameExists(this.state.user.username).then((response) => {
-      this.setState({isAvailable : response.available});
+      this.setState({isAvailable: response.available});
     });
   };
 
@@ -70,7 +70,7 @@ class Login extends Component {
     login(this.state.user.username, this.state.user.password).then((user) => {
       if (user.token) {
         this.props.setUser(user);
-        localStorage.setItem("Pw",this.state.user.password);
+        localStorage.setItem('Pw', this.state.user.password);
         this.props.getPw(this.state.user.password); //lähetetään salasana omaan stateen App.js
         this.props.history.push('/home');
       } else {
@@ -99,7 +99,22 @@ class Login extends Component {
 
   render() {
     return (
-        <React.Fragment>
+        <div style={{
+          top: '50%',
+          position: 'absolute',
+          transform: 'translateY(-50%)',
+          textAlign: 'center',
+          borderStyle: 'solid',
+          borderWidth: '8px',
+          borderColor: 'Brown',
+          padding: '20px',
+          minHeight: '482px',
+          minWidth: '266px',
+          display: 'flex',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          background: 'linear-gradient(#51bcbe, #b3d6c0)'
+        }}>
           <div id="logincontainer" style={{display: 'block'}}>
             <Typography variant="h2" gutterBottom>Login</Typography>
             <ValidatorForm
@@ -121,10 +136,11 @@ class Login extends Component {
               />
               <br/>
               <br/>
-              <Button type="submit" variant="contained">Login</Button>
+              <Button type="submit" variant="contained"  fullWidth="true">Login</Button>
 
             </ValidatorForm>
           </div>
+
           <div id="regcontainer" style={{display: 'none'}}>
             <Typography variant="h2" gutterBottom>Register</Typography>
             <p id="errorText"></p>
@@ -189,14 +205,15 @@ class Login extends Component {
               />
               <br/>
               <br/>
-              <Button type="submit" variant="contained">Register</Button>
+              <Button type="submit" variant="contained" fullWidth="true">Register</Button>
 
             </ValidatorForm>
           </div>
           <br/>
           <Button id="changeButton" variant="contained"
-                  onClick={this.changeForm}>New user? Register instead!</Button>
-        </React.Fragment>
+                  onClick={this.changeForm}>New user?
+          </Button>
+        </div>
     );
   }
 }

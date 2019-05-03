@@ -21,6 +21,11 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
+  bar: {
+    margin: '0 auto',
+    background: 'linear-gradient(#51bcbe, #b3d6c0)',
+    position: 'static',
+  },
 
 };
 
@@ -29,19 +34,20 @@ function ButtonAppBar(props) {
   return (
       <div className={classes.root}>
         <AppBar position="static">
-          <Toolbar>
+          <Toolbar className={classes.bar}>
 
-            <Link to="/upload">
-              <Button color="inherit">Upload</Button>
-            </Link>
+
             <Link to="/home">
               <Button color="inherit">Home</Button>
+            </Link>
+            <Link to="/upload">
+              <Button color="inherit">Create new thread</Button>
             </Link>
             <Link to="/profile">
               <Button color="inherit">Profile</Button>
             </Link>
             <Link to="/my-files">
-              <Button color="inherit">My-files</Button>
+              <Button color="inherit">My threads</Button>
             </Link>
             <Link to="/logout">
               <Button color="inherit">Logout</Button>

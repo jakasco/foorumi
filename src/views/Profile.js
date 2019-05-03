@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import {Redirect, Route} from 'react-router-dom';
 import Nav from "../App";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
-import {  Grid, Button, TextField,} from '@material-ui/core';
+import {Grid, Button, TextField, Typography} from '@material-ui/core';
 import {
     changeUserPassword,
     changeUserName,
@@ -167,7 +167,7 @@ render()
 {
     return (
         <React.Fragment>
-            <h1>Profile</h1>
+            <Typography variant="h2" gutterBottom>Profile</Typography>
             <h2>Real name: {this.state.user.full_name}</h2>
             <h2>Email: {this.state.user.email}</h2>
             <h2>Username: {this.state.user.username}</h2>

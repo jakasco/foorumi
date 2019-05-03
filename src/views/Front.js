@@ -8,7 +8,6 @@ import {withStyles} from '@material-ui/core/styles';
 const styles = () => ({
   list: {
     maxWidth: 1075,
-    backgroundColor: 'rgba(0,0,0,0.3)',
     borderRadius: 6,
     display: 'flex',
     justifyContent: 'center',
@@ -26,10 +25,7 @@ const Front = (props) => {
 
   return (
       <React.Fragment>
-
         <Typography variant="h2" gutterBottom>Catalog</Typography>
-
-
         <GridList className={classes.list}>
           <ImageGrid picArray={props.picArray} edit={false}/>
         </GridList>

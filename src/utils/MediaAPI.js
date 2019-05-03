@@ -145,11 +145,11 @@ const changeForm = () => {
   if (document.querySelector("#logincontainer").style.display === 'block') {
     document.querySelector("#logincontainer").style.display = 'none';
     document.querySelector('#regcontainer').style.display = 'block';
-    document.querySelector('#changeButton').innerHTML = 'Take me back to login!';
+    document.querySelector('#changeButton').innerHTML = 'Back to login';
   } else {
     document.querySelector("#logincontainer").style.display = 'block';
     document.querySelector('#regcontainer').style.display = 'none';
-    document.querySelector('#changeButton').innerHTML = 'New user? Register instead!';
+    document.querySelector('#changeButton').innerHTML = 'New user?';
   }
 };
 

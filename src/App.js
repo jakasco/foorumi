@@ -89,10 +89,10 @@ class App extends Component {
     return (
         <Router>
           <Grid container>
-            <Grid item md={12} xs={12}>
+            <Grid item md={12} xs={12} style={{marginBottom: '10px'}}>
               {!this.state.errorMessage && <ButtonAppBar/>}
             </Grid>
-            <Grid item md={10} xs={12}>
+            <Grid container  direction="column" alignContent="center">
               <Route exact path="/" render={(props) => (
                   <Login {...props} setUser={this.setUser} getPw={this.getPassword}/>
               )}/>
@@ -105,13 +105,13 @@ class App extends Component {
               <Route exact path="/logout" component={this.logout}/>
               <Route exact path="/single/:id" component={Single}/>
               <Route path="/upload" render={(props) => (
-                <Upload {...props} getMedia={this.getMedia}/>
+                <Upload {...props} getMedia={this.updateImages}/>
             )}/>
               <Route path="/my-files" render={(props) => (
                   <MyFiles {...props} user={this.state.user}/>
               )}/>
             </Grid>
-            </Grid>
+          </Grid>
         </Router>
     );
   }
