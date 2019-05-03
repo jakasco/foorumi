@@ -52,7 +52,7 @@ class Reply extends Component {
     console.log(evt);
     this.setState({loading: true});
     const fd = new FormData();
-    fd.append('title', this.state.file.title);
+    fd.append('title', "Reply");
     fd.append('description', this.state.file.description);
     fd.append('file', this.state.file.filedata);
     const options = {
@@ -93,18 +93,7 @@ class Reply extends Component {
           <ValidatorForm onSubmit={this.handleFileSubmit}
                          onError={errors => console.log(errors)}
                          instantValidate={false}>
-            <TextValidator name="title" label="Title" value={this.state.file.title}
-                           onChange={this.handleInputChange}
-                           validators={[
-                             'required',
-                             'minStringLength:3']}
-                           errorMessages={[
-                             'this field is required',
-                             'minimum 3 charaters',
-                           ]}
-                           fullWidth
-            />
-            <TextValidator name="description" label="Description"
+            <TextValidator name="description" label="Your reply:"
                            value={this.state.file.description}
                            onChange={this.handleInputChange}
                            validators={['required', 'minStringLength:3']}

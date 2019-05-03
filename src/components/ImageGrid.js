@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
 import {withStyles} from '@material-ui/core/styles';
 import {OpenWith, Create, Clear, Photo, VideoLabel, Audiotrack} from '@material-ui/icons';
+import {getFilesWithTag} from '../utils/MediaAPI';
 import {
   Button,
   CardActions,
@@ -32,8 +33,17 @@ const styles = {
 
 class ImageGrid extends Component {
 
+  state = {
+    replys: [],
+  }
+
+  getReplys = (id) => {
+    console.log("Reply id: "+id);
+  }
 
   render() {
+    console.log("Picarr ",this.props.picArray);
+    console.log("Picarr ",this.props.picArray.length);
     return this.props.picArray.map((tile, i) => (
 
         <Card className={this.props.classes.card} key={i}>
@@ -60,7 +70,7 @@ class ImageGrid extends Component {
           </CardContent>
           <CardActions>
             <Button size="small" color="primary" component={Link}
-                    to={'/single/' + tile.file_id}>
+                    to={'/single/' + tile.file_id} >
               View
             </Button>
             <IconButton onClick={() => {

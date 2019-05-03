@@ -4,13 +4,29 @@ import { withStyles } from '@material-ui/core/styles';
 import {Redirect, Route} from 'react-router-dom';
 import Nav from "../App";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
-import {Grid, Button, TextField, Typography} from '@material-ui/core';
+import {  Grid, Button, TextField,} from '@material-ui/core';
 import {
     changeUserPassword,
     changeUserName,
     changeUserEmail,
     getFilesWithTag
 } from '../utils/MediaAPI';
+
+const gridStyle = {
+  'display': 'grid',
+  'gridTemplateColumns': 'auto auto auto',
+  'backgroundColor': '#2196F3',
+  'padding': '10px',
+  'height': '100vh',
+  'width': '100%',
+}
+const itemStyle = {
+  'backgroundColor': 'rgba(255, 255, 255, 0.8)',
+  'border': '1px solid rgba(0, 0, 0, 0.8)',
+  'padding': '20px',
+  'fontSize': '30px',
+  'textAlign': 'center',
+}
 
 class Profile extends Component {
 
@@ -37,6 +53,7 @@ class Profile extends Component {
         }else{
           this.state.user = this.props.user;
           console.log("User profiilissa: ",this.state.user);
+          this.forceUpdate();
         }
 
 
@@ -167,11 +184,17 @@ render()
 {
     return (
         <React.Fragment>
-            <Typography variant="h2" gutterBottom>Profile</Typography>
+        <h1>Profile</h1>
+          <div style={gridStyle}>
+            <div>
             <h2>Real name: {this.state.user.full_name}</h2>
+            </div>
+            <div>
             <h2>Email: {this.state.user.email}</h2>
+            </div>
+            <div>
             <h2>Username: {this.state.user.username}</h2>
-
+            </div>
             <div>
                 <h3>Change password:</h3>
                 <ValidatorForm
@@ -236,7 +259,7 @@ render()
                     <Button type="submit" variant="contained" onClick={this.changeUsername}>Change Username</Button>
                 </ValidatorForm>
             </div>
-
+            </div>
         </React.Fragment>
     );
 };

@@ -14,7 +14,7 @@ const mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
 const replyStyle = {
   'height' : '30vh',
   'width' : '20%',
-  'backgroundColor' : 'beige'
+  'backgroundColor' : '#2196F3'
 }
 
 let totalRate = 0;
