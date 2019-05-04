@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
-import {Button} from '@material-ui/core';
+import {Button, Typography} from '@material-ui/core';
 import {addTag} from '../utils/MediaAPI';
 
 class Upload extends Component {
@@ -93,7 +93,7 @@ class Upload extends Component {
   render() {
     return (
         <React.Fragment>
-          <h1>Upload</h1>
+          <Typography variant="h2" gutterBottom style={{textAlign: 'center'}}>Create a new thread</Typography>
           <ValidatorForm onSubmit={this.handleFileSubmit}
                          onError={errors => console.log(errors)}
                          instantValidate={false}>
@@ -126,7 +126,7 @@ class Upload extends Component {
 
                            fullWidth
             />
-            <Button variant='contained' color='primary' type='submit'>Upload&nbsp;{this.state.loading && 'Loading...'}</Button>
+            <Button variant='contained' color='primary' type='submit'>Post&nbsp;{this.state.loading && 'Loading...'}</Button>
           </ValidatorForm>
         </React.Fragment>
     );

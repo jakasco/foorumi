@@ -15,7 +15,7 @@ const replyStyle = {
   'margin': '10px',
   'height' : '60vh',
   'width' : '90%',
-  'backgroundColor' : '#2196F3',
+  'backgroundColor' : 'rgba(0, 0, 0, 0.43)',
 }
 
 const ulStyle = {

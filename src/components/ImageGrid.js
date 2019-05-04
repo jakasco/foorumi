@@ -73,11 +73,15 @@ class ImageGrid extends Component {
                     to={'/single/' + tile.file_id} >
               View
             </Button>
+
+            {this.props.edit &&
             <IconButton onClick={() => {
               this.props.deleteFile(tile.file_id);
             }}>
               <Clear color="secondary"/>
             </IconButton>
+            }
+
           </CardActions>
         </Card>
     ));
@@ -88,6 +92,7 @@ ImageGrid.propTypes = {
   picArray: PropTypes.array,
   classes: PropTypes.object.isRequired,
   deleteFile: PropTypes.func,
+  edit: PropTypes.bool,
 };
 
 export default withStyles(styles)(ImageGrid);

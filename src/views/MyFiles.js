@@ -3,7 +3,16 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import ImageGrid from '../components/ImageGrid';
 import {deleteMedia, getMediaFromUser} from '../utils/MediaAPI';
+import {GridList, Typography, withStyles} from '@material-ui/core';
 
+const styles = () => ({
+  list: {
+    maxWidth: 1075,
+    borderRadius: 6,
+    display: 'flex',
+    justifyContent: 'center',
+  },
+});
 
 class MyFiles extends Component {
   state = {
@@ -44,8 +53,13 @@ class MyFiles extends Component {
     return (
         <React.Fragment>
           {/* <Table picArray={this.picArray}/> */}
-          <ImageGrid picArray={this.state.picArray} edit={true}
-                     deleteFile={this.deleteFile}/>
+          <Typography variant="h2" gutterBottom>My threads</Typography>
+          <GridList className={this.props.classes.list}>
+            <ImageGrid picArray={this.state.picArray} edit={true}
+                       deleteFile={this.deleteFile}
+
+            />
+          </GridList>
         </React.Fragment>
     );
   }
@@ -54,6 +68,7 @@ class MyFiles extends Component {
 MyFiles.propTypes = {
   user: PropTypes.object,
   history: PropTypes.object,
+  classes: PropTypes.object.isRequired,
 };
 
-export default MyFiles;
+export default withStyles(styles)(MyFiles);

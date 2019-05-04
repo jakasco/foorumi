@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import {Redirect, Route} from 'react-router-dom';
 import Nav from "../App";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
-import {  Grid, Button, TextField,} from '@material-ui/core';
+import {Grid, Button, TextField, Typography} from '@material-ui/core';
 import {
     changeUserPassword,
     changeUserName,
@@ -15,10 +15,13 @@ import {
 const gridStyle = {
   'display': 'grid',
   'gridTemplateColumns': 'auto auto auto',
-  'backgroundColor': '#2196F3',
-  'padding': '10px',
+  'backgroundColor': 'rgba(0, 0, 0, 0.43)',
   'height': '100vh',
-  'width': '100%',
+  'minWidth': '80%',
+  'justifyItems': 'center',
+  marginLeft: '-200px',
+  marginRight: '-200px',
+  borderRadius: '15px',
 }
 const itemStyle = {
   'backgroundColor': 'rgba(255, 255, 255, 0.8)',
@@ -184,7 +187,7 @@ render()
 {
     return (
         <React.Fragment>
-        <h1>Profile</h1>
+        <Typography variant="h2" gutterBottom style={{textAlign: 'center'}}>Profile</Typography>
           <div style={gridStyle}>
             <div>
             <h2>Real name: {this.state.user.full_name}</h2>
