@@ -9,3 +9,10 @@ reply field and repeadetly clicked "Reply" button until she realized she must at
 After successfully posted a reply, she was wondering why the topic isn't updating and her reply won't appear.
 She pressed f5 and the post appeared.
 She went back to home page and checked her profile. Then she logged out.
+
+Confusing stuff:
+
+-There is no Logo neither name of the site.
+-You can't open the topic by clicking the image
+-Replies don't automatically update
+-The image attachment is must
