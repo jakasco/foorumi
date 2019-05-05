@@ -116,9 +116,15 @@ class Single extends Component {
         }
   //      console.table(this.state.totalRate2);
         //  this.setState({render: "render"}); //Jotta renderöidään 2d array
+        pituus = 100;
           this.forceUpdate();
       });
     });
+  }
+
+  changeHeight = () => {
+    pituus += 30;
+    replyStyle.height = pituus+'vh';
   }
 
   getData = () => {
@@ -208,9 +214,7 @@ class Single extends Component {
             {this.state.replys.map((tile, i) => (
 
                 <li style={liStyle}>
-                { pituus += 30}
-                  {  replyStyle.height = pituus+'vh'}
-                {console.log("Pituus: "+pituus)}
+                  {this.changeHeight}
                 <React.Fragment key={tile.file_id}>
                 {this.getRates.call(this, tile.file_id, i)}
                 <div style={divStyle2}>

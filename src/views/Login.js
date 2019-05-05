@@ -106,14 +106,14 @@ class Login extends Component {
           textAlign: 'center',
           borderStyle: 'solid',
           borderWidth: '8px',
-          borderColor: 'Brown',
+          borderColor: 'lightBlue',
           padding: '20px',
           minHeight: '482px',
           minWidth: '266px',
           display: 'flex',
           justifyContent: 'center',
           flexDirection: 'column',
-          background: 'linear-gradient(#51bcbe, #b3d6c0)'
+          background: 'linear-gradient(#51bcbe, #b3d6c0)',
         }}>
           <div id="logincontainer" style={{display: 'block'}}>
             <Typography variant="h2" gutterBottom>Login</Typography>
